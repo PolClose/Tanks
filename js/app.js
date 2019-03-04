@@ -19,7 +19,7 @@ class Game {
     ];
 
     this.tanks = [];
-    this.counterTanks = [];
+    this.counterTanks = 0;
     this.counterLife = 10;
   }
 
