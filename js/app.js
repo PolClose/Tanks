@@ -3,7 +3,6 @@ class Game {
     this.gameState = false;
     this.time = 0;
     this.gameInterval;
-
     this.tanksPosition = [
       {"x":50,"y":105,"z":9},
       {"x":150,"y":100,"z":9},
@@ -48,36 +47,29 @@ class Game {
         $(this).data("state","stop");
       }
     });
-    let counterTanks = $('<div class="counterTanks">Ilosc Czołgów'+this.counterTanks.length+'</div>');
+    
+    let timerdiv = $('<div class="timerdiv">czas:'+this.time+'</div>');
+    let counterTanks = $('<div class="counterTanks">Ilosc Czołgów'+this.counterTanks+'</div>');
     let counterLife = $('<div class="counterLife">Życie'+this.counterLife+'</div>');
-    $(".menu").append(pause).append(counterTanks).append(counterLife);
+    $(".menu").append(pause).append(counterTanks).append(counterLife).append(timerdiv);
 
-   
-
- 
-
-    this.createTank();
+    // this.createTank();
 
     this.gameInterval = setInterval(()=>{
-      
+      let time = this.time;
       if (gameState){
         this.createTank()
         
       }
     },1000);
 
-console.log(this);
-
-
   }
-
+  
   createTank() {
     let tanks = this.tanks;
-    let counterTanksNum = this.counterTanks;
     
     let tanksPosition = this.tanksPosition;
       
-    //;
     //let randomTank = Math.floor((Math.random() * this.tanksPosition.length) +1 )-1;
     if(tanks.length<12){
       do {
@@ -103,22 +95,14 @@ console.log(this);
       let tank = new Tank();
       tank.create(this.tanksPosition[randomTank].x,this.tanksPosition[randomTank].y,this.tanksPosition[randomTank].z,randomTank);
     
-      console.log(counterTanksNum);
-      
       tanks.push(tank);
-      console.log(tanks);
-    
+      
       tank.element.on("click",function(e){
       this.remove();
       console.log($(e.target).data("id"));
-      counterTanksNum.push('1');
-      
-          tanks.splice($(e.target).data("id"), 1);
-      
-      console.log(tanks);
-      
-    });
-  }
+      tanks.splice($(e.target).data("id"), 1);
+      });
+    }
     
   }
 }
