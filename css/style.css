@@ -3,6 +3,16 @@
   padding: 0;
   box-sizing: border-box;
 }
+a {
+  text-decoration: none;
+}
+
+body {
+ font-family:  monospace, sans-serif;
+}
+button {
+  font-family:  monospace, sans-serif;
+ }
 .hide {
   display: none;
 }
@@ -24,7 +34,16 @@
   position: relative;
   overflow: hidden;
   float: left;
+}
 
+.level {
+  font-size: 20px;
+  color: red;
+  float: left;
+}
+.over {
+  font-size: 20px;
+  color: red;
 }
 
 /* pagórki */
@@ -62,10 +81,10 @@
   z-index: 30;
 }
 
-/* obiekty */
+/* czoug */
 .tank {
-  width: 60px;
-  height: 30px;
+  width: 62px;
+  height: 23px;
   background-color: #333300;
   position: absolute;
   top: 20px;
@@ -87,7 +106,7 @@
   height: 36px;
   background-color: #666633;
   top: -3px;
-  left: 47px;
+  left: 49px;
   position: absolute;
   content: '';
 }
@@ -97,7 +116,7 @@
   border-radius: 50%;
   background-color: #333300;
   top: -14px;
-  left: 16px;
+  left: 17px;
   content: "";
   position: absolute;
 }
@@ -110,19 +129,45 @@
   left: 4px;
   content: "";
   position: absolute;
-  animation: shot 2s infinite;
-  animation-delay: 3.2s; 
- 
-
-
+  animation: shot 4s infinite;
+  animation-delay: 3.9s; 
 }
-
+/* medic box */
+.med {
+  width: 40px;
+  height: 30px;
+  background-color: white;
+  position: absolute;
+  content: "";
+  border-radius: 3%;
+  animation: hover 3s ;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+.med:after {
+  width: 6px;
+  height: 20px;
+  left: 17px;
+  top: 5px;
+  position: absolute;
+  content: "";
+  background-color: red;
+}
+.med:before {
+  width: 20px;
+  height: 6px;
+  left: 10px;
+  top: 12px;
+  position: absolute;
+  content: "";
+  background-color: red;
+}
 
 /* animacje */
 .shots {
 animation: shot 1s;
-
 }
+
 @keyframes shot {
   0% { }
  
@@ -139,8 +184,8 @@ animation: shot 1s;
 }
 
 
-  @keyframes hover {
-    0% { }
+@keyframes hover {
+  0% { }
   
-    100% { transform: translate(0px,-20px); }
-  }
+  100% { transform: translate(0px,-20px); }
+}
