@@ -10,7 +10,7 @@ No.
 
 # Features:
 
-- shot tanks
+- shoot tanks
 
 
 # To do:
@@ -18,10 +18,11 @@ No.
 - add scores
 - make new levels
 - better styles
+- correct bugs
 
-#Status
+# Status
 at the beginning.
 
-#Instalation:
+# Instalation:
 
 Copy files on your computer.

@@ -6,14 +6,6 @@ class Game {
     this.time = 0;
     this.gameInterval;
     this.interval = 1000;
-    // this.intervalVal = setInterval(()=>{
-    //   if (game.time < 10){
-    //     this.interval = 2000
-    //   }else  {
-    //     this.interval = 1000
-    //     console.log("cuda cuda");
-    //   }
-    // },1000);
     this.tanksPosition = [
       {"x":50,"y":105,"z":9},
       {"x":150,"y":100,"z":9},
@@ -62,39 +54,32 @@ class Game {
     let timerDiv = $('<div class="timerDiv">czas:'+this.m+':0'+this.s+'</div>');
     let counterTanksDiv = $('<div class="counterTanks">Ilość Czołgów:'+this.counterTanks.length+'</div>');
     let counterLifeDiv = $('<div class="counterLife">Życie:'+this.counterLife+'</div>');
-    // let levelDiv = $('<div class="level">LEVEL 1</div>');
+    let levelDiv = $('<div class="level">LEVEL 1</div>');
     $(".menu").append(counterTanksDiv).append(counterLifeDiv).append(timerDiv);
-    // $(".playground").append(levelDiv);
+    $(".playground").append(levelDiv);
 
-    // this.levelInterval = setInterval(()=>{
-    //   if( this.time >=10 && this.time < 60){
-    //     $(".level").html("LEVEL 2");
-    //   }
-    // },10000);
-
+    // INTERWAŁY
+    
     this.timeInterval = setInterval(()=>{
       if (gameState){
         this.timer();
         
       }
     },1000);
-    
+    this.createTank();
     this.gameInterval = setInterval(()=>{
       if (gameState){
         this.createTank();
       }
-    }, this.interval);
+    }, 4000);
   
-    
-
     this.medInterval = setInterval(()=>{
       this.createMed();
     this.medTimeout = setTimeout(()=>{$(".med").remove()},5000)
-    },15000)  
-    
-    //this.endGame();
-    
+    },15000)   
   }
+
+  
   timer() {
     this.time++;
     this.s++;
@@ -107,54 +92,57 @@ class Game {
       $(".timerDiv").html('czas:'+this.m+':0'+this.s); }else{
       $(".timerDiv").html('czas:'+this.m+':'+this.s); 
     }
-    // if (this.time < 10){
-    //   this.intervalVal = 4000
-    // }else  {
-    //   this.intervalVal = 1000
-    // }
-    
+
+    if (this.time == 10 ) {
+      clearInterval(game.gameInterval)
+      game.gameInterval = setInterval(()=>{
+          this.createTank();
+          $(".level").html("LEVEL 2");
+      }, 2000);
+    }else if (this.time == 20 ) {
+      clearInterval(game.gameInterval)
+      game.gameInterval = setInterval(()=>{
+          this.createTank();
+          $(".level").html("LEVEL 3 ( your last )");
+      }, 1000);
+    }else if (this.time == 30 ) {
+      clearInterval(game.gameInterval)
+      game.gameInterval = setInterval(()=>{
+          this.createTank();
+          $(".level").html("LEVEL 4 ( sorry this is the last )");
+      }, 100);
+    }
   }
 
   createTank() {
     let tanks = this.tanks;
-    let counterTanks = this.counterTanks;
     
-      
-    //let randomTank = Math.floor((Math.random() * this.tanksPosition.length) +1 )-1;
     if(tanks.length < game.tanksPosition.length){
       do {
-
          var randomTank = Math.floor((Math.random() * this.tanksPosition.length) +1 )-1;
-      
       } while (checkTanks(randomTank));
-    //checkTanks(randomTank);
+
 
     function checkTanks(id){
       let result = false;
       tanks.forEach(function(e,i){
-        // console.log('id',e.id);
         if(e.id == id){
           result = true;
-          // console.log('jest');
-          //debugger;
         }
-        
       });
       return result;
     }
+
       let tank = new Tank();
       
       tank.create(this.tanksPosition[randomTank].x,this.tanksPosition[randomTank].y,this.tanksPosition[randomTank].z,randomTank);
       let helpThis = this;
       tanks.push(tank);
      
-      
       tank.element.on("click",function(e){
         clearInterval(tank.interval);
         this.remove();
-      // console.log($(e.target).data("id"));
         tanks.splice(helpThis, 1);
-      // console.log(tanks);
       
         helpThis.counterTanks.push('0');
         $('.counterTanks').html('Ilość Czołgów:'+ helpThis.counterTanks.length);
@@ -172,10 +160,9 @@ class Game {
         helpThis.counterLife += 2;
         $('.counterLife').html("Życie:"+game.counterLife);
         this.remove();
-      });
-      
-      
+      }); 
     }
+
   endGame() {
     if ( game.counterLife < 1){
       let gameOver = $('<div class="over">You Loose</div>');
@@ -185,18 +172,15 @@ class Game {
       // $(".pause").remove();
       $(".box").append(gameOver).append(startAgain);
       
-      
       game.tanks.forEach((element)=>{
         clearInterval(element.interval);
       });
       game.tanks = [];
+
       clearInterval(game.gameInterval);
       clearInterval(game.timeInterval);
-    }  
-
+    } 
   }
-  
-
 }
 
 class Tank {
@@ -208,9 +192,7 @@ class Tank {
       game.counterLife--;
       $('.counterLife').html("Życie:"+game.counterLife);
        game.endGame();
-       
        },4000);
-       
   }
 
   create(x,y,z,id) {

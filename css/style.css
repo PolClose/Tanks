@@ -37,9 +37,10 @@ button {
 }
 
 .level {
-  font-size: 20px;
+  font-size: 24px;
   color: red;
   float: left;
+  font-weight: bold;
 }
 .over {
   font-size: 20px;
