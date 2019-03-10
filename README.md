@@ -1,4 +1,4 @@
-# [Poor Tanks]
+# [Very Poor Tanks]
 
 This is my first game written in jQuery, so please don't be disappointed.
 

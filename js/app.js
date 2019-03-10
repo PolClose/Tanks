@@ -76,7 +76,7 @@ class Game {
     this.medInterval = setInterval(()=>{
       this.createMed();
     this.medTimeout = setTimeout(()=>{$(".med").remove()},5000)
-    },15000)   
+    },5000)   
   }
 
   
