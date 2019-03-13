@@ -193,9 +193,11 @@ class Tank {
     this.id;
     this.element;
     this.interval = setInterval(function(){
+      if (game.gameState){
       game.counterLife--;
       $('.counterLife').html("Życie:"+game.counterLife);
        game.endGame();
+      }
        },4000);
   }
 
