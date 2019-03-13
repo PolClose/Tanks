@@ -75,8 +75,8 @@ class Game {
   
     this.medInterval = setInterval(()=>{
       this.createMed();
-    this.medTimeout = setTimeout(()=>{$(".med").remove()},5000)
-    },5000)   
+    
+    },8000)   
   }
 
   
@@ -165,20 +165,24 @@ class Game {
 
   endGame() {
     if ( game.counterLife < 1){
+      game.tanks.forEach((element)=>{
+        clearInterval(element.interval);
+      });
+      clearInterval(game.gameInterval);
+      clearInterval(game.timeInterval);
       let gameOver = $('<div class="over">You Loose</div>');
       let startAgain = $('<button class="startGame"><a href="index.html">One More Time</a></button>')
       $(".playground").remove();
       $(".counterLife").remove();
       // $(".pause").remove();
       $(".box").append(gameOver).append(startAgain);
+      game.gameState = false;
       
-      game.tanks.forEach((element)=>{
-        clearInterval(element.interval);
-      });
       game.tanks = [];
+      console.log($(".tank"));
+      
 
-      clearInterval(game.gameInterval);
-      clearInterval(game.timeInterval);
+      
     } 
   }
 }
@@ -221,6 +225,7 @@ class Med {
     this.element = med;
     $(".playground").append(med);
     this.id = id;
+    this.medTimeout = setTimeout(()=>{med.remove()},5000)
   }
 }
 
